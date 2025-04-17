@@ -1,13 +1,12 @@
 import os
 import base64
 import requests
-import re
 
-EMAIL = os.environ["bolee132@gmail.com"]
-KEY = os.environ["df13b67b6548663c049cafcb4f8ad1c4"]
+EMAIL = os.environ["FOFA_EMAIL"]
+KEY = os.environ["FOFA_API_KEY"]
 QUERY = 'body="udp/" && port="5555"'
 PAGE_SIZE = 100
-MAX_PAGES = 3  # 最多查 300 条，视情况可改
+MAX_PAGES = 3  # 共抓最多 300 条
 
 UDP_PATH = "/udp/239.45.3.209:5140"
 
@@ -23,7 +22,7 @@ def fofa_search(query, page):
 
 def is_link_alive(url):
     try:
-        r = requests.get(url, timeout=4, stream=True)
+        r = requests.get(url, timeout=5, stream=True)
         if r.status_code == 200:
             print(f"[✅] 可用: {url}")
             return True
