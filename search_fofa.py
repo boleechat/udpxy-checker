@@ -4,15 +4,15 @@ import requests
 
 EMAIL = os.environ["FOFA_EMAIL"]
 KEY = os.environ["FOFA_API_KEY"]
-QUERY = 'body="udp/" && port="5555"'
+QUERY = 'body="udp/" && port="5555"'  # 可根据你测试时 FOFA 搜索页面微调
 PAGE_SIZE = 100
-MAX_PAGES = 3  # 共抓最多 300 条
+MAX_PAGES = 1  # 免费用户最多一页
 
 UDP_PATH = "/udp/239.45.3.209:5140"
 
 def fofa_search(query, page):
     b64_query = base64.b64encode(query.encode()).decode()
-    url = f"https://fofa.info/api/v1/search/all?email={EMAIL}&key={KEY}&qbase64={b64_query}&page={page}&size={PAGE_SIZE}&fields=host"
+    url = f"https://fofa.info/api/v1/search?email={EMAIL}&key={KEY}&qbase64={b64_query}&page={page}&size={PAGE_SIZE}&fields=host"
     r = requests.get(url)
     if r.status_code == 200:
         return r.json().get("results", [])
@@ -34,12 +34,12 @@ def is_link_alive(url):
 def main():
     all_hosts = set()
     for page in range(1, MAX_PAGES + 1):
-        print(f"🔍 FOFA 第 {page} 页...")
+        print(f"🔍 FOFA 第 {page} 页（免费接口）...")
         results = fofa_search(QUERY, page)
         if not results:
             break
         for host in results:
-            all_hosts.add(host[0])
+            all_hosts.add(host)
 
     print(f"\n🌐 共获取到 {len(all_hosts)} 个 udpxy 服务")
 
