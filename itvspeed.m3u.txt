@@ -1,4 +1,6 @@
 #EXTM3U
+#EXTM3U x-tvg-url="https://assets.livednow.com/epg.xml"
+
 #EXTINF:-1 tvg-name="新闻综合" tvg-id="107" tvg-logo="https://epg.deny.vip/df/新闻综合.png" group-title="上海",新闻综合HD
 http://101.83.65.9:8899/udp/239.45.3.209:5140
 #EXTINF:-1 tvg-name="都市频道" tvg-id="103" tvg-logo="https://epg.deny.vip/df/都市频道.png" group-title="上海",都市频道HD
