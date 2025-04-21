@@ -1,0 +1,35 @@
+name: Auto IPTV Speed Test
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 每天UTC时间2点（北京时间10点）自动运行
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  speedtest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run IPTV speed test
+        run: python code.py
+
+      - name: Commit and push new itvspeed.m3u
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add itvspeed.m3u valid_udpxy_sorted_from_csv.txt
+          git commit -m "Auto update itvspeed.m3u with fastest IP [skip ci]" || echo "No changes to commit"
+          git push
