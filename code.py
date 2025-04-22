@@ -52,43 +52,31 @@ def _read_targets_from_file(f):
 def parse_csv_for_targets(path):
     """
     Reads the CSV file and extracts unique (ip, port) targets.
-    Tries GBK encoding first, then falls back to UTF-8-SIG.
+    Tries UTF-8 first, then falls back to GBK.
     """
     targets = None
     try:
-        # Try GBK first
-        print(f"[ℹ️] Trying to read '{path}' with GBK encoding...")
-        with open(path, mode='r', encoding='gbk', newline='') as f:
+        print(f"[ℹ️] Trying to read '{path}' with UTF-8 encoding...")
+        with open(path, mode='r', encoding='utf-8', newline='') as f:
             targets = _read_targets_from_file(f)
-        print(f"[✅] Successfully read using GBK encoding.")
+        print(f"[✅] Successfully read using UTF-8 encoding.")
     except UnicodeDecodeError:
-        print(f"[⚠️] GBK decoding failed. Trying UTF-8-SIG encoding...")
+        print(f"[⚠️] UTF-8 decoding failed. Trying GBK encoding...")
         try:
-            # Fallback to UTF-8-SIG
-            with open(path, mode='r', encoding='utf-8-sig', newline='') as f:
-                 targets = _read_targets_from_file(f)
-            print(f"[✅] Successfully read using UTF-8-SIG encoding.")
-        except UnicodeDecodeError as e_utf8:
-             print(f"[❌] Failed to decode '{path}' using both GBK and UTF-8-SIG. Error: {e_utf8}")
-             print("[ℹ️] Please check the file's actual encoding or save it as UTF-8.")
-             return None
-        except FileNotFoundError:
-             print(f"[❌] Error: Input CSV file '{path}' not found.")
-             return None
+            with open(path, mode='r', encoding='gbk', newline='') as f:
+                targets = _read_targets_from_file(f)
+            print(f"[✅] Successfully read using GBK encoding.")
         except Exception as e:
-            print(f"[❌] Error reading CSV file '{path}' with UTF-8-SIG fallback: {e}")
+            print(f"[❌] Failed to decode '{path}' using both UTF-8 and GBK. Error: {e}")
             return None
-    except FileNotFoundError:
-        print(f"[❌] Error: Input CSV file '{path}' not found.")
-        return None
     except Exception as e:
-         print(f"[❌] Error reading CSV file '{path}' with GBK: {e}")
-         return None
+        print(f"[❌] Error reading CSV file '{path}': {e}")
+        return None
 
     if targets is None:
         print("[❌] Failed to extract targets from CSV.")
         return None
-        
+
     unique_targets = list(targets)
     print(f"Found {len(unique_targets)} unique IP:Port combinations from {path}")
     return unique_targets
