@@ -3,4 +3,4 @@
 # Min Download Threshold: 10 KB
 # Format: URL  # Total KB Downloaded, Avg Speed (KB/s)
 
-http://222.65.234.44:4022/udp/239.45.3.209:5140  # 2160.35 KB, 718.41 KB/s
+http://222.65.234.44:4022/udp/239.45.3.209:5140  # 751.82 KB, 425.60 KB/s
