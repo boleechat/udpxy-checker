@@ -3,4 +3,4 @@
 # Min Download Threshold: 10 KB
 # Format: URL  # Total KB Downloaded, Avg Speed (KB/s)
 
-http://218.1.171.71:4022/udp/239.45.3.209:5140  # 9544.00 KB, 954.40 KB/s
+http://218.1.171.71:4022/udp/239.45.3.209:5140  # 8176.00 KB, 817.60 KB/s
