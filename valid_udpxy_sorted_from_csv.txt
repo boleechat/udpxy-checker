@@ -3,4 +3,4 @@
 # Min Download Threshold: 10 KB
 # Format: URL  # Total KB Downloaded, Avg Speed (KB/s)
 
-http://180.175.162.200:8888/udp/239.45.3.209:5140  # 5872.00 KB, 587.20 KB/s
+http://58.37.123.53:4022/udp/239.45.3.209:5140  # 8368.00 KB, 836.80 KB/s
